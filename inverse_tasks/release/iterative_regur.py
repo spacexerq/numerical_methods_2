@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from copy import *
 
 A = 0.5
 delta_t = 1e-3
@@ -51,13 +50,13 @@ def iteration_step(x_prev_step, f, k, alpha=1.0):
 
 
 def solve_iterative(f_noise, core_loc, alpha=1.0, m_max=100, eps=1e-2):
-    x_0 = np.zeros_like(f_noise[:core_loc.size])
-    x_current = deepcopy(x_0)
+    x0 = np.zeros_like(f_noise[:core_loc.size])
+    x_current = x0
     x_new = iteration_step(x_current, f_noise, core_loc, alpha)
     xs = [x_new]
     m = 0
     for i in range(m_max):
-        x_current = deepcopy(x_new)
+        x_current = x_new
         x_new = iteration_step(x_current, f_noise, core_loc, alpha)
         xs.append(x_new)
         if np.linalg.norm(x_current - x_new) / np.linalg.norm(x_new) <= eps:
@@ -100,4 +99,4 @@ def iterative_solver(num_iterations=1e2, epsilon=1e-2, plot_default=True):
     plt.show()
 
 
-# iterative_solver(num_iterations=1e3, epsilon=1e-2, plot_default=True)
+iterative_solver(num_iterations=1e3, epsilon=1e-2, plot_default=True)

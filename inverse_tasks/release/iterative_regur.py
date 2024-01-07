@@ -99,4 +99,4 @@ def iterative_solver(num_iterations=1e2, epsilon=1e-2, plot_default=True):
     plt.show()
 
 
-iterative_solver(num_iterations=1e3, epsilon=1e-2, plot_default=True)
+# iterative_solver(num_iterations=1e3, epsilon=1e-2, plot_default=True)

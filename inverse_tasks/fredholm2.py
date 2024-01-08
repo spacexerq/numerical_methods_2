@@ -102,7 +102,7 @@ def iter(y, h, x, n, k, f):
     return yk
 
 
-def solve_iter(k, f, x: np.ndarray, h: float):
+def solve_iter(k, f, x, h):
     n = len(x)
     y = f(x)
     yk = iter(y, h, x, n, k, f)
@@ -146,12 +146,19 @@ t = np.linspace(a, b, N)
 f_fredg = func_fredg(t, N, type_func=1)
 x_fredg = np.zeros_like(f_fredg)
 x_fredg = quad_fr(f_fredg, x_fredg, t, core_type=0, func_loc=1)
-# x_ex = [2 * np.exp(t[i]) - 1 for i in range(N)]
 x_ex = fredh_exact(0, 1, t)
 plt.plot(t, x_ex, label="Exact sol.")
 plt.plot(t, x_fredg, label="Numerical sol.")
 plt.legend()
 plt.show()
 
+f_fredg = func_fredg(t, N, type_func=1)
+x_fredg = np.zeros_like(f_fredg)
+x_fredg = solve_iter(f_fredg, x_fredg, t, core_type=0, func_loc=1)
+x_ex = fredh_exact(0, 1, t)
+plt.plot(t, x_ex, label="Exact sol.")
+plt.plot(t, x_fredg, label="Numerical sol.")
+plt.legend()
+plt.show()
 
 

@@ -113,7 +113,7 @@ def report_fourier(func_type=1, noisy_val=False, sigma=1e-2):
     plt.show()
 
 
-def report_least_sqaures(sigma=1e-2):
+def report_least_squares(sigma=1e-2):
     a = 0
     b = 0.1
     dt = 1e-5
@@ -139,6 +139,6 @@ report_finite_diff(func_type=2, noisy_val=False, sigma=1e-2)
 # report_fourier(func_type=1, noisy_val=True, sigma=1e-2)
 report_fourier(func_type=2, noisy_val=False, sigma=1e-2)
 # report_fourier(func_type=2, noisy_val=True, sigma=1e-2)
-# report_least_sqaures(sigma=1)
-# report_least_sqaures(sigma=1e-1)
-# report_least_sqaures(sigma=1e-2)
+# report_least_squares(sigma=1)
+# report_least_squares(sigma=1e-1)
+# report_least_squares(sigma=1e-2)

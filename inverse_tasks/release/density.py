@@ -55,20 +55,20 @@ def report_whole_data_density():
 def report_slice_data_no_reg_dens():
     np.random.shuffle(data)
     small_data = data[:500]
-    a_small = a_coef(small_data, 10)
-    x_small = np.linspace(-1, 1, 100)
-    f_small = [0]*len(x_small)
+    a_slice = a_coef(small_data, 10)
+    x_slice = np.linspace(-1, 1, 100)
+    f_slice = [0]*len(x_slice)
 
-    for i in range(len(x_small)):
+    for i in range(len(x_slice)):
         result = 0
-        for k in range(len(a_small)):
+        for k in range(len(a_slice)):
             polynom = sp.special.legendre(k)
-            var = float(a_small[k]*polynom(x_small[i]))
+            var = float(a_slice[k]*polynom(x_slice[i]))
             result += var
-        f_small[i] += result
+        f_slice[i] += result
 
     plt.title("Плотность без регуляризации")
-    plt.plot(x_small, f_small)
+    plt.plot(x_slice, f_slice)
     plt.hist(small_data, bins=100, density=True)
     plt.show()
 
@@ -76,25 +76,25 @@ def report_slice_data_no_reg_dens():
 def report_slice_data_with_reg_dens():
     np.random.shuffle(data)
     small_data = data[:500]
-    a_small = a_coef_reg(small_data, 10)
-    x_small = np.linspace(-1, 1, 100)
-    f_small_reg = [0]*len(x_small)
+    a_slice = a_coef_reg(small_data, 10)
+    x_slice = np.linspace(-1, 1, 100)
+    f_slice_reg = [0]*len(x_slice)
 
-    for i in range(len(x_small)):
+    for i in range(len(x_slice)):
         result = 0
-        for k in range(len(a_small)):
+        for k in range(len(a_slice)):
             polynom = sp.special.legendre(k)
-            var = float(a_small[k]*polynom(x_small[i]))
+            var = float(a_slice[k]*polynom(x_slice[i]))
             result += var
-        f_small_reg[i] += result
+        f_slice_reg[i] += result
 
     plt.title("Плотность с регуляризацией")
-    plt.plot(x_small, f_small_reg)
+    plt.plot(x_slice, f_slice_reg)
     plt.hist(small_data, bins=100, density=True)
     plt.show()
 
-# plt.plot(x_small, f_small, label='плотность по малой выборке без регуляризации')
-# plt.plot(x_small, f_small_reg, label='плотность по малой выборке с регуляризацией')
+# plt.plot(x_small, f_small, label='Плотность среза данных без регуляризации')
+# plt.plot(x_small, f_small_reg, label='Плотность среза данных с регуляризацией')
 # plt.plot(x, f, label='плотность по всей')
 # plt.legend()
 # plt.show()

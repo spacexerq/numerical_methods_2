@@ -122,4 +122,4 @@ def report_regularization():
     alpha_hist_output(t, h, sigma2)
 
 
-#report_regularization()
+# report_regularization()

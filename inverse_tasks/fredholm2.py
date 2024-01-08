@@ -1,7 +1,5 @@
 import numpy as np
 from matplotlib import pyplot as plt
-import random as rd
-from scipy.integrate import cumtrapz, simpson, solve_ivp
 
 epsilon = 1e-2
 
@@ -69,9 +67,28 @@ def solve_quad(f, h, x, t, tau, lambd=1, beta=2, core_type=0):
         for n in range(1, i):
             s += K_loc[n, i] * x[n]
         # s = np.sum(K_loc[i, 1:i] * x[1:i])
-        x[i] = f[i] + (K_loc[i, i] + h / 2 * K_loc[i, 0] + h*s) / (1 - h / 2 * K_loc[i, i])
+        x[i] = f[i] + (K_loc[i, i] + h / 2 * K_loc[i, 0] + h * s) / (1 - h / 2 * K_loc[i, i])
     return x
 
+
+def quad_fr(f_func, x, t, core_type=0, lambd=1, beta=2, func_loc=1):
+    tau = t
+    n = len(x)
+    wt = 0.5
+    wj = 1
+    a = np.zeros((n, n), dtype=float)
+    K_loc = core_fredh(t, tau, lambd=lambd, type_func=core_type, beta=beta)
+    for i in range(n):
+        a[i, 0] = -h * wt * K_loc[i, 0]
+        for j in range(1, n - 1):
+            a[i, j] = -h * wj * K_loc[i, j]
+        a[i, n - 1] = -h * wt * K_loc[i, n - 1]
+        a[i, i] += 1.
+        b = np.zeros_like(x)
+        for j in range(n):
+            b[j] = func_fredg(x[j], 1, type_func=func_loc)
+    y = np.linalg.solve(a, b)
+    return y
 
 
 def iter(y, h, x, n, k, f):
@@ -120,21 +137,21 @@ def fredh_exact(core_type, func_type, t, beta=2, lmbd=1):
     return func_ret
 
 
-a = 0
-b = 10
-step = 1e-2
+a = -np.pi
+b = np.pi
+step = 5e-3
 N = int(np.abs(a - b) / step)
-
+h = step
 t = np.linspace(a, b, N)
-#t = np.logspace(a, 4, 10)
 f_fredg = func_fredg(t, N, type_func=1)
 x_fredg = np.zeros_like(f_fredg)
-x_fredg = solve_quad(f_fredg, step, x_fredg, t, t, core_type=2)
+x_fredg = quad_fr(f_fredg, x_fredg, t, core_type=0, func_loc=1)
 # x_ex = [2 * np.exp(t[i]) - 1 for i in range(N)]
 x_ex = fredh_exact(0, 1, t)
-K_loc = core_fredh(t, t, lambd=1, type_func=0, beta=2)
-plt.plot(t, K_loc)
 plt.plot(t, x_ex, label="Exact sol.")
 plt.plot(t, x_fredg, label="Numerical sol.")
 plt.legend()
 plt.show()
+
+
+

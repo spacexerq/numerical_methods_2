@@ -52,10 +52,10 @@ def report_finite_diff(func_type=1, sigma=1e-2, noisy_val=False):
     plt.plot(time, exact_der, label="Exact solution")
     plt.plot(t1, der, "--", label="FD solution")
     plt.legend()
-    plt.text(0, -300, "dt=" + str(dt), bbox=dict(boxstyle="round",
-                                                 ec=(1., 0.5, 0.5),
-                                                 fc=(1., 0.8, 0.8),
-                                                 ))
+    # plt.text(0, -300, "dt=" + str(dt), bbox=dict(boxstyle="round",
+    #                                              ec=(1., 0.5, 0.5),
+    #                                              fc=(1., 0.8, 0.8),
+    #                                              ))
     if noisy_val:
         plt.title("FD with noise")
         plt.text(0, 0, "sigma=" + str(sigma), bbox=dict(boxstyle="round",
@@ -133,11 +133,11 @@ def report_least_squares(sigma=1e-2):
     plt.show()
 
 
-report_finite_diff(func_type=2, noisy_val=False, sigma=1e-2)
+# report_finite_diff(func_type=2, noisy_val=False, sigma=1e-2)
 # report_finite_diff(func_type=2, noisy_val=True, sigma=1e-3)
 # report_finite_diff(func_type=2, noisy_val=True, sigma=1e-2)
 # report_fourier(func_type=1, noisy_val=True, sigma=1e-2)
-report_fourier(func_type=2, noisy_val=False, sigma=1e-2)
+# report_fourier(func_type=2, noisy_val=False, sigma=1e-2)
 # report_fourier(func_type=2, noisy_val=True, sigma=1e-2)
 # report_least_squares(sigma=1)
 # report_least_squares(sigma=1e-1)
